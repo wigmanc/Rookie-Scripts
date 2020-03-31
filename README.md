@@ -1,3 +1,3 @@
 # Lazy-Scripts
 
-Will print available devices with ifconfig and will ask you which device you want to device.
+Scripts to used when either you have a new distro in used or  just to save time.
