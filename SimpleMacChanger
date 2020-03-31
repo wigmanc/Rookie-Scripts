@@ -1,0 +1,9 @@
+#!/bin/bash
+
+ifconfig
+echo -en "What device you want to change mac of? > ";read device
+sudo ip link set dev $device down
+sudo macchanger $device -r
+sudo ip link set dev $device up
+
+echo -e "\e[1;31m Mac Change Complete \e[0m"
