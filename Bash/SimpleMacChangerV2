@@ -1,0 +1,3 @@
+#!/bin/bash
+
+#In version 1 we could improve for script to check if  macchanger and in some odd distros net-tools, tool is already installed.
