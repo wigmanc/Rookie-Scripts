@@ -1,3 +1,21 @@
 #!/bin/bash
 
-#In version 1 we could improve for script to check if  macchanger and in some odd distros net-tools, tool is already installed.
+#In version 1 we could improve for script to check if  macchanger and net-tools, is already installed.
+
+# Check if macchanger and net-tools are installed
+if ! [ -x "$(command -v macchanger)" ] || ! [ -x "$(command -v net-tools)" ]; then
+    echo "Error: macchanger and net-tools are not installed." >&2
+    exit 1
+fi
+
+# Display current network interfaces and configurations
+ifconfig
+
+echo -en "What device you want to change mac of? > ";read device
+
+# Bring device down, change MAC address, and bring device up
+sudo ip link set dev $device down
+sudo macchanger $device -r
+sudo ip link set dev $device up
+
+echo -e "\e[1;31m Mac Change Complete \e[0m"
