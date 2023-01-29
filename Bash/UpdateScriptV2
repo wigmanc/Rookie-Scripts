@@ -1,0 +1,41 @@
+#!/bin/bash
+
+set -e
+
+if ! apt-get -q update; then
+  echo "Error updating package list"
+  exit 1
+fi
+
+if ! apt-get -q upgrade -y; then
+  echo "Error upgrading packages"
+  exit 1
+fi
+
+if ! apt-get -q autoremove -y; then
+  echo "Error removing unnecessary packages"
+  exit 1
+fi
+
+if ! apt-get -q install -y update-manager-core; then
+  echo "Error installing update-manager-core package"
+  exit 1
+fi
+
+if ! do-release-upgrade -d -y; then
+  echo "Error upgrading system"
+  exit 1
+fi
+
+if ! apt-get -q dist-upgrade -y --auto-remove --purge; then
+  echo "Error upgrading system"
+  exit 1
+fi
+
+if ! apt-get -q clean -y; then
+  echo "Error cleaning package cache"
+  exit 1
+fi
+
+logger -p user.info "Update Complete"
+
